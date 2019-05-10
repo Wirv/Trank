@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,17 +10,20 @@ public class Enemy : MonoBehaviour
     [Header("Variabili Numeriche")]
     public float speed = 20;
     float rayDistance = 50;
-
+    float projSpeed = 5000;
+    protected int life = 30;
     public float maxAngle = 45;
     float maxRadius = 60;
     [Header("Variabili Booleane")]
     public bool ready = false;
     public bool takePoint = false;
     public bool takePlayer = false;
+    public bool shot = false;
     [Header("Variabili Miste")]
     public Transform player;
-    public GameObject Proj;
-    GameObject FirePoint;
+    public GameObject Proj; // variabile da mettere manualmente
+    public GameObject TestaCannone; //da mettere manualmente
+    public GameObject FirePoint; // da mettere manualmente
     public Transform target;
     public NavMeshAgent agent;
     public List<Transform> waypoint = new List<Transform>();
@@ -76,24 +80,39 @@ public class Enemy : MonoBehaviour
             if (Physics.Raycast(ray, out hit, maxRadius))
             {
                 if (hit.transform == player)
+                {
                     takePlayer = true;
+                    
+                }
             }
 
         }
         else
+        {
             takePlayer = false;
+            TestaCannone.transform.LookAt(null);
+            TestaCannone.transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime);
 
-        
+        }
+
     }
+    #region MiniFunc
     public void ReCheck()
     {
         InFov();
     }
-
+    public IEnumerator Shot()
+    {
+        shot = true;
+        yield return new WaitForSeconds(0.5f);
+        Rigidbody projIstance;
+        projIstance = Instantiate(Proj.GetComponent<Rigidbody>(), FirePoint.transform.position, FirePoint.transform.rotation);
+        projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
+        shot = false;
+    }
+    #endregion
     private void Start()
     {
-        
-        FirePoint = GameObject.FindGameObjectWithTag("FirePoint");
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         int i = 1;
@@ -120,7 +139,7 @@ public class Enemy : MonoBehaviour
 
         if (takePlayer == false && takePoint == false)
         {
-            int I = Random.Range(0, waypoint.Count);
+            int I = UnityEngine.Random.Range(0, waypoint.Count);
             target = waypoint[I];
             agent.SetDestination(target.position);
             takePoint = true;
@@ -131,9 +150,14 @@ public class Enemy : MonoBehaviour
             takePoint = false;
             target = player;
             agent.SetDestination(target.position);
+            TestaCannone.transform.LookAt(target.position);
+            if (shot == false)
+            StartCoroutine(Shot());
             Invoke("ReCheck", 5); // Da aggiustare 
         }
 
+        if (life <= 0)
+            Destroy(gameObject);
 
     }
 
@@ -164,6 +188,13 @@ public class Enemy : MonoBehaviour
     {
         if (other.name == target.name)
             takePoint = false;
+
+        if (other.tag == "Project")
+        {
+            takePlayer = true;
+            life -= 8;
+            Destroy(other.gameObject);
+        }
     }
     
 }

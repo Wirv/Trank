@@ -11,6 +11,9 @@ TagManager:
   - Point2
   - Point3
   - Point4
+  - Wall
+  - Project
+  - ProjectEn
   layers:
   - Default
   - TransparentFX

@@ -28,7 +28,18 @@ public class Player : MonoBehaviour
         moveDir *= moveSpeed * Time.deltaTime;
         transform.Translate(moveDir, Space.World);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir),rotationSpeed * Time.deltaTime);
+
+        if (Life <= 0)
+            Destroy(gameObject);
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "ProjectEn")
+        {
+            Life -= 5;
+            Destroy(other.gameObject);
+        }
+    }
+
 }
