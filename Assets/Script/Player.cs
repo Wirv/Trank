@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -15,10 +16,18 @@ public class Player : MonoBehaviour
     
     Vector3 moveDir = Vector3.zero;
 
+    [Header("Slider")]
+    public Slider slider; // da mettere manualmente
+
+    public void Start()
+    {      
+        slider.maxValue = Life;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        slider.value = Life;
         Vector3 temp = transform.position;
         temp.y = 2.45f;
         transform.position = temp;
