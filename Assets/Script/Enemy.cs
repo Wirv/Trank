@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -26,9 +27,12 @@ public class Enemy : MonoBehaviour
     public GameObject FirePoint; // da mettere manualmente
     public Transform target;
     public NavMeshAgent agent;
+    public GameObject HealtBarUI; // da mettere manualmente
+    public Slider slider;// da mettere manualmente
+    public Camera camera; // da mettere manualmente
     public List<Transform> waypoint = new List<Transform>();
     #endregion
-    
+
 
     //public static bool InFov (Transform checkingObject, Transform playerf, float maxAngle, float maxRadius)
     //{
@@ -64,6 +68,7 @@ public class Enemy : MonoBehaviour
     //    }
     //    return false;
     //}
+    #region MiniFunc
     public void InFov()
     {
 
@@ -85,21 +90,20 @@ public class Enemy : MonoBehaviour
                     
                 }
             }
+            else
+            {
+                Invoke("StopFollow", 5); 
+            }
 
         }
-        else
-        {
-            takePlayer = false;
-            TestaCannone.transform.LookAt(null);
-            TestaCannone.transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime);
-
-        }
-
+      
     }
-    #region MiniFunc
-    public void ReCheck()
+    
+    public void StopFollow()
     {
-        InFov();
+        takePlayer = false;
+        TestaCannone.transform.LookAt(null);
+        TestaCannone.transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime);
     }
     public IEnumerator Shot()
     {
@@ -115,6 +119,8 @@ public class Enemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
+        slider.maxValue = life;
+        HealtBarUI.SetActive(false);
         int i = 1;
         while (ready == false)
         {
@@ -132,10 +138,14 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (takePlayer == false)
-            InFov();
+        slider.value = life;
+        slider.transform.LookAt(camera.transform.position);
+        InFov();
         
-
+        if(life < 30)
+        {
+            HealtBarUI.SetActive(true);
+        }
 
         if (takePlayer == false && takePoint == false)
         {
@@ -153,7 +163,7 @@ public class Enemy : MonoBehaviour
             TestaCannone.transform.LookAt(target.position);
             if (shot == false)
             StartCoroutine(Shot());
-            Invoke("ReCheck", 5); // Da aggiustare 
+            
         }
 
         if (life <= 0)
@@ -193,6 +203,7 @@ public class Enemy : MonoBehaviour
         {
             takePlayer = true;
             life -= 8;
+            
             Destroy(other.gameObject);
         }
     }
