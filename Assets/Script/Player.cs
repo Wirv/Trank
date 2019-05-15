@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     [Header("Slider")]
     public Slider slider; // da mettere manualmente
 
+    [Header("GameObject")]
+    public GameObject particles; // da mettere manualmente
+
     public void Start()
     {      
         slider.maxValue = Life;
@@ -38,8 +41,9 @@ public class Player : MonoBehaviour
         transform.Translate(moveDir, Space.World);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir),rotationSpeed * Time.deltaTime);
 
-        if (Life <= 0)
+        if (Life <= 0)           
             Destroy(gameObject);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,4 +55,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        Instantiate(particles, gameObject.transform.position , gameObject.transform.rotation);
+    }
 }

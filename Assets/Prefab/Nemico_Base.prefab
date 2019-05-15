@@ -625,6 +625,8 @@ MonoBehaviour:
   HealtBarUI: {fileID: 2984920928540678711}
   slider: {fileID: 3128988527967801319}
   camera: {fileID: 0}
+  particles: {fileID: 3772325125780908424, guid: 5238c74d3911f8b49956ca56bd80b54b,
+    type: 3}
   waypoint: []
 --- !u!1 &7700540165761403086
 GameObject:

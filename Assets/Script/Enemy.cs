@@ -29,7 +29,8 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public GameObject HealtBarUI; // da mettere manualmente
     public Slider slider;// da mettere manualmente
-    public Camera camera; // da mettere manualmente
+    public Camera cameramain; // da mettere manualmente
+    public GameObject particles; // da mettere manualmente
     public List<Transform> waypoint = new List<Transform>();
     #endregion
 
@@ -69,34 +70,35 @@ public class Enemy : MonoBehaviour
     //    return false;
     //}
     #region MiniFunc
-    public void InFov()
+    public void InFov()//Da Aggiustare
     {
-
-        Vector3 directionBetween = (player.position - transform.position).normalized;
-        directionBetween.y *= 0;
-
-        float angle = Vector3.Angle(transform.forward, directionBetween);
-
-        if (angle <= maxAngle)
+        if (player)
         {
-            Ray ray = new Ray(transform.position, player.position - transform.position);
-            RaycastHit hit;
+            Vector3 directionBetween = (player.position - transform.position).normalized;
+            directionBetween.y *= 0;
 
-            if (Physics.Raycast(ray, out hit, maxRadius))
+            float angle = Vector3.Angle(TestaCannone.transform.forward, directionBetween);
+
+            if (angle <= maxAngle)
             {
-                if (hit.transform == player)
+                Ray ray = new Ray(transform.position, player.position - transform.position);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, maxRadius))
                 {
-                    takePlayer = true;
-                    
-                }
-            }
-            else
-            {
-                Invoke("StopFollow", 5); 
-            }
+                    if (hit.transform == player)
+                    {
+                        takePlayer = true;
 
+                    }
+                }
+                else
+                {
+                    Invoke("StopFollow", 5);
+                }
+
+            }
         }
-      
     }
     
     public void StopFollow()
@@ -139,7 +141,7 @@ public class Enemy : MonoBehaviour
     public void Update()
     {
         slider.value = life;
-        slider.transform.LookAt(camera.transform.position);
+        slider.transform.LookAt(cameramain.transform.position);
         InFov();
         
         if(life < 30)
@@ -158,13 +160,17 @@ public class Enemy : MonoBehaviour
         if (takePlayer == true)
         {
             takePoint = false;
-            target = player;
-            agent.SetDestination(target.position);
-            TestaCannone.transform.LookAt(target.position);
-            if (shot == false)
-            StartCoroutine(Shot());
-            
+            if (player)
+            {
+                target = player;
+                agent.SetDestination(target.position);
+                TestaCannone.transform.LookAt(target.position);
+                if (shot == false)
+                    StartCoroutine(Shot());
+            }
         }
+
+       
 
         if (life <= 0)
             Destroy(gameObject);
@@ -176,21 +182,23 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.blue; // crea la zona in questo caso una sfera di trigger
         Gizmos.DrawWireSphere(transform.position, maxRadius);
 
-        Vector3 fovLine1 = Quaternion.AngleAxis(maxAngle, transform.up) * transform.forward * maxRadius; // linee di visuale
-        Vector3 fovLine2 = Quaternion.AngleAxis(-maxAngle, transform.up) * transform.forward * maxRadius;
+        Vector3 fovLine1 = Quaternion.AngleAxis(maxAngle, TestaCannone.transform.up) * TestaCannone.transform.forward * maxRadius; // linee di visuale
+        Vector3 fovLine2 = Quaternion.AngleAxis(-maxAngle, TestaCannone.transform.up) * TestaCannone.transform.forward * maxRadius;
 
         Gizmos.color = Color.blue; // linee visive sulla scena
-        Gizmos.DrawRay(transform.position, fovLine1);
-        Gizmos.DrawRay(transform.position, fovLine2);
+        Gizmos.DrawRay(TestaCannone.transform.position, fovLine1);
+        Gizmos.DrawRay(TestaCannone.transform.position, fovLine2);
 
-        if (!takePlayer)
-            Gizmos.color = Color.cyan; // ray che segue il player, rimanendo nella zona dell'enemy
-        else
-            Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
-
+        if (player)
+        {
+            if (!takePlayer)
+                Gizmos.color = Color.cyan; // ray che segue il player, rimanendo nella zona dell'enemy
+            else
+                Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
+        }
         Gizmos.color = Color.blue; // ray centrale
-        Gizmos.DrawRay(transform.position, transform.forward * maxRadius);
+        Gizmos.DrawRay(TestaCannone.transform.position, TestaCannone.transform.forward * maxRadius);
 
     }
 
@@ -207,5 +215,9 @@ public class Enemy : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-    
+
+    private void OnDestroy()
+    {
+        Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
+    }
 }
