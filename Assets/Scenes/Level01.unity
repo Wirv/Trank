@@ -983,6 +983,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Directional Light
       objectReference: {fileID: 0}
+    - target: {fileID: 8786161637493508650, guid: c8cd452579a2ec74d9f58d3051089180,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 2.3509887e-38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786161637493508650, guid: c8cd452579a2ec74d9f58d3051089180,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 3.4362884e+10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786161637493508650, guid: c8cd452579a2ec74d9f58d3051089180,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 7.7371252e+25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786161637493508650, guid: c8cd452579a2ec74d9f58d3051089180,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 4.7019774e-38
+      objectReference: {fileID: 0}
     - target: {fileID: 8786161637493508651, guid: c8cd452579a2ec74d9f58d3051089180,
         type: 3}
       propertyPath: m_LocalPosition.x

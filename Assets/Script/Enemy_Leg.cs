@@ -9,22 +9,24 @@ public class Enemy_Leg : MonoBehaviour
     #region Variabili
     [Header("Variabili Numeriche")]
     public float speed = 20;
-    float rayDistance = 50;
     protected int life = 10;
-    public float maxAngle = 45;
+    protected float maxAngle = 25;
     float maxRadius = 60;
     [Header("Variabili Booleane")]
     public bool ready = false;
     public bool takePoint = false;
     public bool takePlayer = false;
+    public bool explosion = false;
     [Header("Variabili Miste")]
     public Transform player;
+    public Player Player;
     public Transform target;
     public NavMeshAgent agent;
     public GameObject HealtBarUI; // da mettere manualmente
     public Slider slider;// da mettere manualmente
     public Camera cameramain; // da mettere manualmente
     public GameObject particles; // da mettere manualmente
+    public GameObject Explosion; // da mettere manualmente
     public List<Transform> waypoint = new List<Transform>();
     #endregion
 
@@ -43,7 +45,7 @@ public class Enemy_Leg : MonoBehaviour
                 Ray ray = new Ray(transform.position, player.position - transform.position);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, maxRadius))
+                if (Physics.Raycast(ray, out hit, maxRadius * 3))
                 {
                     if (hit.transform == player)
                     {
@@ -62,10 +64,18 @@ public class Enemy_Leg : MonoBehaviour
 
     public void StopFollow()
     {
+        transform.LookAt(null);
         takePlayer = false;
-        agent.speed -= speed;
+        agent.speed = speed;
     }
     #endregion
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -113,7 +123,8 @@ public class Enemy_Leg : MonoBehaviour
             {
                 target = player;
                 agent.SetDestination(target.position);
-                agent.speed += speed;
+                transform.LookAt(target.position);
+                agent.speed = speed * 3;
             }
         }
 
@@ -129,8 +140,8 @@ public class Enemy_Leg : MonoBehaviour
         Gizmos.color = Color.magenta; // crea la zona in questo caso una sfera di trigger
         Gizmos.DrawWireSphere(transform.position, maxRadius);
 
-        Vector3 fovLine1 = Quaternion.AngleAxis(maxAngle, transform.up) * transform.forward * maxRadius; // linee di visuale
-        Vector3 fovLine2 = Quaternion.AngleAxis(-maxAngle, transform.up) * transform.forward * maxRadius;
+        Vector3 fovLine1 = Quaternion.AngleAxis(maxAngle, transform.up) * transform.forward * (maxRadius * 3); // linee di visuale
+        Vector3 fovLine2 = Quaternion.AngleAxis(-maxAngle, transform.up) * transform.forward * (maxRadius * 3);
 
         Gizmos.color = Color.magenta; // linee visive sulla scena
         Gizmos.DrawRay(transform.position, fovLine1);
@@ -145,7 +156,7 @@ public class Enemy_Leg : MonoBehaviour
             Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
         }
         Gizmos.color = Color.magenta; // ray centrale
-        Gizmos.DrawRay(transform.position, transform.forward * maxRadius);
+        Gizmos.DrawRay(transform.position, transform.forward * (maxRadius * 3));
 
     }
 
@@ -161,10 +172,19 @@ public class Enemy_Leg : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+
+        if(other.name == "Player")
+        {
+            explosion = true;
+            Instantiate(Explosion, gameObject.transform.position, gameObject.transform.rotation);
+            Player.Life -= 50;
+            Destroy(gameObject);
+        }
     }
 
     private void OnDestroy()
     {
+        if(explosion == false)
         Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
     }
 }

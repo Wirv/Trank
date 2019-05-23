@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     #region Variabili
     [Header("Variabili Numeriche")]
     public float speed = 20;
-    float rayDistance = 50;
     float projSpeed = 5000;
     protected int life = 30;
     public float maxAngle = 45;
@@ -214,6 +213,7 @@ public class Enemy : MonoBehaviour
             
             Destroy(other.gameObject);
         }
+
     }
 
     private void OnDestroy()

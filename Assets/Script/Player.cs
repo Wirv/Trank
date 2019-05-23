@@ -53,6 +53,13 @@ public class Player : MonoBehaviour
             Life -= 5;
             Destroy(other.gameObject);
         }
+
+
+        if (other.tag == "Explosion")
+        {
+            Life -= 50;
+        }
+
     }
 
     private void OnDestroy()
