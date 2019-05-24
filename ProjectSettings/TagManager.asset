@@ -16,6 +16,8 @@ TagManager:
   - ProjectEn
   - Explosion
   - Point6
+  - ProjectPS
+  - Laser
   layers:
   - Default
   - TransparentFX

@@ -54,6 +54,17 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if (other.tag == "ProjectPS")
+        {
+            Life -= 10;
+            Destroy(other.gameObject);
+        }
+
+        if (other.tag == "Laser")
+        {
+            Life -= 25;
+            
+        }
 
         if (other.tag == "Explosion")
         {

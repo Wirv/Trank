@@ -9,14 +9,16 @@ public class Enemy_Leg : MonoBehaviour
     #region Variabili
     [Header("Variabili Numeriche")]
     public float speed = 20;
-    protected int life = 10;
+    protected int life = 12;
+    protected int maxlife = 12;
     protected float maxAngle = 25;
-    float maxRadius = 60;
+    protected float maxRadius = 120;
     [Header("Variabili Booleane")]
     public bool ready = false;
     public bool takePoint = false;
     public bool takePlayer = false;
     public bool explosion = false;
+    public bool notFound = false;
     [Header("Variabili Miste")]
     public Transform player;
     public Player Player;
@@ -55,7 +57,8 @@ public class Enemy_Leg : MonoBehaviour
                 }
                 else
                 {
-                    Invoke("StopFollow", 5);
+                    if(notFound == false)
+                        Invoke("StopFollow", 5);
                 }
 
             }
@@ -65,8 +68,10 @@ public class Enemy_Leg : MonoBehaviour
     public void StopFollow()
     {
         transform.LookAt(null);
+        agent.enabled = true;
         takePlayer = false;
         agent.speed = speed;
+        notFound = true;
     }
     #endregion
 
@@ -103,7 +108,7 @@ public class Enemy_Leg : MonoBehaviour
         slider.transform.LookAt(cameramain.transform.position);
         InFov();
 
-        if (life < 30)
+        if (life < maxlife)
         {
             HealtBarUI.SetActive(true);
         }
@@ -122,9 +127,9 @@ public class Enemy_Leg : MonoBehaviour
             if (player)
             {
                 target = player;
-                agent.SetDestination(target.position);
+                agent.enabled = false;
                 transform.LookAt(target.position);
-                agent.speed = speed * 3;
+                transform.Translate(Vector3.forward * speed * 3 * Time.deltaTime);
             }
         }
 

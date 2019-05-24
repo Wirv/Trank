@@ -9,9 +9,10 @@ public class Enemy_Pesante : MonoBehaviour
 {
     #region Variabili
     [Header("Variabili Numeriche")]
-    public float speed = 20;
+    public float speed = 15;
     float projSpeed = 5000;
-    protected int life = 30;
+    protected int life = 80;
+    protected int maxlife = 80;
     public float maxAngle = 45;
     float maxRadius = 60;
     [Header("Variabili Booleane")]
@@ -19,17 +20,23 @@ public class Enemy_Pesante : MonoBehaviour
     public bool takePoint = false;
     public bool takePlayer = false;
     public bool shot = false;
+    public bool shotLaser = false;
+    public bool notFound = false;
     [Header("Variabili Miste")]
     public Transform player;
+    public Player Player;
     public GameObject Proj; // variabile da mettere manualmente
     public GameObject TestaCannone; //da mettere manualmente
     public GameObject FirePoint; // da mettere manualmente
+    public GameObject FirePoint2; // da mettere manualmente
+    public GameObject FirePointLaser; // da mettere manualmente
     public Transform target;
     public NavMeshAgent agent;
     public GameObject HealtBarUI; // da mettere manualmente
     public Slider slider;// da mettere manualmente
     public Camera cameramain; // da mettere manualmente
     public GameObject particles; // da mettere manualmente
+    public GameObject Laser; // da mettere manualmente
     public List<Transform> waypoint = new List<Transform>();
     #endregion
 
@@ -53,12 +60,14 @@ public class Enemy_Pesante : MonoBehaviour
                     if (hit.transform == player)
                     {
                         takePlayer = true;
-
+                        if (shot == false)
+                            StartCoroutine(Shot());
                     }
                 }
                 else
                 {
-                    Invoke("StopFollow", 5);
+                    if(notFound == false)
+                        Invoke("StopFollow", 5);
                 }
 
             }
@@ -70,17 +79,35 @@ public class Enemy_Pesante : MonoBehaviour
         takePlayer = false;
         TestaCannone.transform.LookAt(null);
         TestaCannone.transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime);
+        notFound = true;
     }
     public IEnumerator Shot()
     {
         shot = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         Rigidbody projIstance;
         projIstance = Instantiate(Proj.GetComponent<Rigidbody>(), FirePoint.transform.position, FirePoint.transform.rotation);
         projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
+        projIstance = Instantiate(Proj.GetComponent<Rigidbody>(), FirePoint2.transform.position, FirePoint2.transform.rotation);
+        projIstance.AddForce(FirePoint2.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
         shot = false;
     }
+
+    public IEnumerator ShotLaser()
+    {
+        shotLaser = true;
+        yield return new WaitForSeconds(2);
+        Instantiate(Laser, FirePointLaser.transform.position, FirePointLaser.transform.rotation);
+        shotLaser = false;
+    }
     #endregion
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();        
+    }
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -108,7 +135,7 @@ public class Enemy_Pesante : MonoBehaviour
         slider.transform.LookAt(cameramain.transform.position);
         InFov();
 
-        if (life < 30)
+        if (life < maxlife)
         {
             HealtBarUI.SetActive(true);
         }
@@ -129,8 +156,9 @@ public class Enemy_Pesante : MonoBehaviour
                 target = player;
                 agent.SetDestination(target.position);
                 TestaCannone.transform.LookAt(target.position);
-                if (shot == false)
-                    StartCoroutine(Shot());
+
+                if (shotLaser == false)
+                    StartCoroutine(ShotLaser());
             }
         }
 

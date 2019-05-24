@@ -7,7 +7,10 @@ public class Particles_Destroy : MonoBehaviour
 
     void Update()
     {
-        Invoke("Destroyer", 3);
+        if(gameObject.tag != "Laser")
+            Invoke("Destroyer", 1f);
+        else
+            Invoke("Destroyer", 0.2f);
     }
 
     public void Destroyer()

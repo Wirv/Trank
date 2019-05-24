@@ -135,22 +135,22 @@ PrefabInstance:
     - target: {fileID: 5404529260144312767, guid: a4e8801c2f3e3124db2b91fbfae08dac,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9033067888508777388, guid: a4e8801c2f3e3124db2b91fbfae08dac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 386.4
+      value: -41.8
       objectReference: {fileID: 0}
     - target: {fileID: 9033067888508777388, guid: a4e8801c2f3e3124db2b91fbfae08dac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.2
+      value: 10.2
       objectReference: {fileID: 0}
     - target: {fileID: 9033067888508777388, guid: a4e8801c2f3e3124db2b91fbfae08dac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 67.4
+      value: -87.4
       objectReference: {fileID: 0}
     - target: {fileID: 9033067888508777388, guid: a4e8801c2f3e3124db2b91fbfae08dac,
         type: 3}
@@ -197,6 +197,16 @@ PrefabInstance:
       propertyPath: cameramain
       value: 
       objectReference: {fileID: 642742822}
+    - target: {fileID: 3381715144828912082, guid: a4e8801c2f3e3124db2b91fbfae08dac,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3381715144828912082, guid: a4e8801c2f3e3124db2b91fbfae08dac,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4e8801c2f3e3124db2b91fbfae08dac, type: 3}
 --- !u!20 &642742822 stripped
@@ -323,6 +333,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nemico_Leggero
       objectReference: {fileID: 0}
+    - target: {fileID: 3447453661476745822, guid: f81c5a6164a1b5542b1fca9ffd874f60,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1840997041319575629, guid: f81c5a6164a1b5542b1fca9ffd874f60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -386,12 +401,12 @@ PrefabInstance:
     - target: {fileID: 3335648035212551501, guid: f81c5a6164a1b5542b1fca9ffd874f60,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3335648035212551501, guid: f81c5a6164a1b5542b1fca9ffd874f60,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f81c5a6164a1b5542b1fca9ffd874f60, type: 3}

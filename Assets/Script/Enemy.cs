@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float speed = 20;
     float projSpeed = 5000;
     protected int life = 30;
+    protected int maxlife = 30;
     public float maxAngle = 45;
     float maxRadius = 60;
     [Header("Variabili Booleane")]
@@ -19,6 +20,7 @@ public class Enemy : MonoBehaviour
     public bool takePoint = false;
     public bool takePlayer = false;
     public bool shot = false;
+    public bool notFound = false;
     [Header("Variabili Miste")]
     public Transform player;
     public GameObject Proj; // variabile da mettere manualmente
@@ -93,7 +95,8 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    Invoke("StopFollow", 5);
+                    if(notFound == false)
+                        Invoke("StopFollow", 5);
                 }
 
             }
@@ -105,6 +108,7 @@ public class Enemy : MonoBehaviour
         takePlayer = false;
         TestaCannone.transform.LookAt(null);
         TestaCannone.transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime);
+        notFound = true;
     }
     public IEnumerator Shot()
     {
@@ -116,6 +120,12 @@ public class Enemy : MonoBehaviour
         shot = false;
     }
     #endregion
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -143,7 +153,7 @@ public class Enemy : MonoBehaviour
         slider.transform.LookAt(cameramain.transform.position);
         InFov();
         
-        if(life < 30)
+        if(life < maxlife)
         {
             HealtBarUI.SetActive(true);
         }
