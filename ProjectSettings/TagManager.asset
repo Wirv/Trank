@@ -6,18 +6,15 @@ TagManager:
   tags:
   - Enemy
   - FirePoint
-  - Point5
-  - Point1
-  - Point2
-  - Point3
-  - Point4
   - Wall
   - Project
   - ProjectEn
   - Explosion
-  - Point6
   - ProjectPS
   - Laser
+  - Point
+  - EnemyLeg
+  - EnemyPes
   layers:
   - Default
   - TransparentFX

@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 3708924849627842193}
   m_Layer: 0
   m_Name: Nemico_Pesante
-  m_TagString: Untagged
+  m_TagString: EnemyPes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -953,7 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   maxAngle: 45
-  ready: 0
+  NoTakeWay: 0
   takePoint: 0
   takePlayer: 0
   shot: 0

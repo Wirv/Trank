@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 401503812}
   m_Layer: 0
   m_Name: GameObject (5)
-  m_TagString: Point6
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 8843525148788352344}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Point1
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 382778984441443877}
   m_Layer: 0
   m_Name: GameObject (4)
-  m_TagString: Point5
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 6442531693895830851}
   m_Layer: 0
   m_Name: GameObject (3)
-  m_TagString: Point4
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 5801975785039481068}
   m_Layer: 0
   m_Name: GameObject (2)
-  m_TagString: Point3
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 6431182798832127319}
   m_Layer: 0
   m_Name: GameObject (1)
-  m_TagString: Point2
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

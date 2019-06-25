@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float verticalVelocity;
     public float moveDirX;
     public float moveDirZ;
-    public float moveSpeed = 8.0f;
+    public float moveSpeed = 60;
     public float rotationSpeed = 8.0f;
 
     

@@ -9,12 +9,13 @@ public class Enemy_Leg : MonoBehaviour
     #region Variabili
     [Header("Variabili Numeriche")]
     public float speed = 20;
-    protected int life = 12;
-    protected int maxlife = 12;
+    protected int life = 16;
+    protected int maxlife = 16;
     protected float maxAngle = 25;
     protected float maxRadius = 120;
     [Header("Variabili Booleane")]
-    public bool ready = false;
+    public bool NoTakeWay = false;
+    public bool Trap = false;
     public bool takePoint = false;
     public bool takePlayer = false;
     public bool explosion = false;
@@ -29,7 +30,7 @@ public class Enemy_Leg : MonoBehaviour
     public Camera cameramain; // da mettere manualmente
     public GameObject particles; // da mettere manualmente
     public GameObject Explosion; // da mettere manualmente
-    public List<Transform> waypoint = new List<Transform>();
+    public GameObject[] waypoint;
     #endregion
 
     #region MiniFunc
@@ -57,21 +58,20 @@ public class Enemy_Leg : MonoBehaviour
                 }
                 else
                 {
-                    if(notFound == false)
-                        Invoke("StopFollow", 5);
+                    if(notFound == false && Trap == false)
+                        StartCoroutine(StopFollow());
                 }
 
             }
         }
     }
 
-    public void StopFollow()
+    public IEnumerator StopFollow()
     {
-        transform.LookAt(null);
-        agent.enabled = true;
-        takePlayer = false;
-        agent.speed = speed;
         notFound = true;
+        yield return new WaitForSeconds(5f);
+        takePlayer = false;
+        notFound = false;
     }
     #endregion
 
@@ -87,19 +87,7 @@ public class Enemy_Leg : MonoBehaviour
         agent.speed = speed;
         slider.maxValue = life;
         HealtBarUI.SetActive(false);
-        int i = 1;
-        while (ready == false)
-        {
-            if (GameObject.FindGameObjectWithTag("Point" + i) != null)
-            {
-                waypoint.Add(GameObject.FindGameObjectWithTag("Point" + i).transform);
-                i++;
-            }
-            else
-                ready = true;
-
-
-        }
+        waypoint = GameObject.FindGameObjectsWithTag("Point");
     }
 
     public void Update()
@@ -113,10 +101,10 @@ public class Enemy_Leg : MonoBehaviour
             HealtBarUI.SetActive(true);
         }
 
-        if (takePlayer == false && takePoint == false)
+        if (takePlayer == false && takePoint == false && NoTakeWay == false)
         {
-            int I = UnityEngine.Random.Range(0, waypoint.Count);
-            target = waypoint[I];
+            int I = UnityEngine.Random.Range(0, waypoint.Length - 1);
+            target = waypoint[I].transform;
             agent.SetDestination(target.position);
             takePoint = true;
         }
@@ -129,7 +117,7 @@ public class Enemy_Leg : MonoBehaviour
                 target = player;
                 agent.enabled = false;
                 transform.LookAt(target.position);
-                transform.Translate(Vector3.forward * speed * 3 * Time.deltaTime);
+                transform.Translate(Vector3.forward * speed * 5 * Time.deltaTime);
             }
         }
 
@@ -183,6 +171,13 @@ public class Enemy_Leg : MonoBehaviour
             explosion = true;
             Instantiate(Explosion, gameObject.transform.position, gameObject.transform.rotation);
             Player.Life -= 50;
+            Destroy(gameObject);
+        }
+
+        if (other.tag == "Wall")
+        {
+            explosion = true;
+            Instantiate(Explosion, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
         }
     }

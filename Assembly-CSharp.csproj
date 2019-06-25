@@ -112,11 +112,14 @@
     <Compile Include="Assets\Script\Enemy_Leg.cs" />
     <Compile Include="Assets\Script\Enemy_Pesante.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\Laser_Wall_Collision.cs" />
     <Compile Include="Assets\Script\Particles_Destroy.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\PlayerCannon.cs" />
     <Compile Include="Assets\Script\Projectile.cs" />
     <Compile Include="Assets\Script\ProjectileEn.cs" />
+    <Compile Include="Assets\Script\Rondello.cs" />
+    <Compile Include="Assets\Script\Trappola.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
     <None Include="Assets\PostProcessing\Resources\Shaders\Fog.shader" />

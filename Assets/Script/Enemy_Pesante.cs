@@ -14,9 +14,10 @@ public class Enemy_Pesante : MonoBehaviour
     protected int life = 80;
     protected int maxlife = 80;
     public float maxAngle = 45;
-    float maxRadius = 60;
+    float maxRadius = 120;
     [Header("Variabili Booleane")]
-    public bool ready = false;
+    public bool NoTakeWay = false;
+    public bool Trap = false;
     public bool takePoint = false;
     public bool takePlayer = false;
     public bool shot = false;
@@ -37,7 +38,7 @@ public class Enemy_Pesante : MonoBehaviour
     public Camera cameramain; // da mettere manualmente
     public GameObject particles; // da mettere manualmente
     public GameObject Laser; // da mettere manualmente
-    public List<Transform> waypoint = new List<Transform>();
+    public GameObject[] waypoint;
     #endregion
 
     #region MiniFunc
@@ -66,20 +67,22 @@ public class Enemy_Pesante : MonoBehaviour
                 }
                 else
                 {
-                    if(notFound == false)
-                        Invoke("StopFollow", 5);
+                    if (notFound == false && Trap == false)
+                        StartCoroutine(StopFollow());
                 }
 
             }
         }
     }
 
-    public void StopFollow()
+    public IEnumerator StopFollow()
     {
+        notFound = true;
+        yield return new WaitForSeconds(5f);
         takePlayer = false;
         TestaCannone.transform.LookAt(null);
         TestaCannone.transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime);
-        notFound = true;
+        notFound = false;
     }
     public IEnumerator Shot()
     {
@@ -114,19 +117,8 @@ public class Enemy_Pesante : MonoBehaviour
         agent.speed = speed;
         slider.maxValue = life;
         HealtBarUI.SetActive(false);
-        int i = 1;
-        while (ready == false)
-        {
-            if (GameObject.FindGameObjectWithTag("Point" + i) != null)
-            {
-                waypoint.Add(GameObject.FindGameObjectWithTag("Point" + i).transform);
-                i++;
-            }
-            else
-                ready = true;
-
-
-        }
+        waypoint = GameObject.FindGameObjectsWithTag("Point");
+        
     }
 
     public void Update()
@@ -140,10 +132,10 @@ public class Enemy_Pesante : MonoBehaviour
             HealtBarUI.SetActive(true);
         }
 
-        if (takePlayer == false && takePoint == false)
+        if (takePlayer == false && takePoint == false && NoTakeWay == false)
         {
-            int I = UnityEngine.Random.Range(0, waypoint.Count);
-            target = waypoint[I];
+            int I = UnityEngine.Random.Range(0, waypoint.Length - 1);
+            target = waypoint[I].transform;
             agent.SetDestination(target.position);
             takePoint = true;
         }
