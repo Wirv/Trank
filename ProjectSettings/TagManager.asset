@@ -15,6 +15,8 @@ TagManager:
   - Point
   - EnemyLeg
   - EnemyPes
+  - UIP
+  - livelli
   layers:
   - Default
   - TransparentFX
