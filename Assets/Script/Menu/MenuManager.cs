@@ -15,6 +15,9 @@ public class MenuManager : MonoBehaviour
     public AudioClip buttonc;
     public AudioClip closebutton;
 
+    string key = "livUnlock";
+    public static int loadData;
+
     private void Awake()
     {
         livelli = GameObject.FindGameObjectsWithTag("livelli");
@@ -29,6 +32,17 @@ public class MenuManager : MonoBehaviour
         Levels = GameObject.Find("Livelli");
         Levels.SetActive(false);
         Menu.SetActive(true);
+        if(!PlayerPrefs.HasKey(key))
+        {
+            PlayerPrefs.SetInt(key, 0);
+            Debug.Log("creato");
+        }
+
+        loadData = PlayerPrefs.GetInt(key);
+        for(int i = loadData + 1; i < livelli.Length; i++)
+        {
+            livelli[i].GetComponent<Button>().interactable = false;
+        }
     }
 
     // Update is called once per frame

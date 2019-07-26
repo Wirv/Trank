@@ -68,13 +68,13 @@ public class Player : MonoBehaviour
 
         if (other.tag == "Laser")
         {
-            Life -= 25;
+            Life -= 15;
             
         }
 
         if (other.tag == "Explosion")
         {
-            Life -= 50;
+            Life -= 20;
         }
 
     }

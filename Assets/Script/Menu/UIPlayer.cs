@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIPlayer : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UIPlayer : MonoBehaviour
     public GameObject die; // mettere a mano
     public GameObject victory; // mettere a mano
     public GameObject menuGame;
+    public Button BPause, BAudio;
 
     [Header("Altro")]
     public GameObject player;
@@ -26,6 +28,8 @@ public class UIPlayer : MonoBehaviour
     bool sound = false;
     bool menu = false;
 
+    string key = "livUnlock";
+
     private void Awake()
     {
         sound = false;
@@ -42,7 +46,9 @@ public class UIPlayer : MonoBehaviour
         die.SetActive(false);
         victory.SetActive(false);
         menuGame.SetActive(false);
-        
+        BAudio.interactable = true;
+        BPause.interactable = true;
+
     }
 
     // Update is called once per frame
@@ -52,12 +58,16 @@ public class UIPlayer : MonoBehaviour
         {
             Sound(0);
             die.SetActive(true);
+            BAudio.interactable = false;
+            BPause.interactable = false;
         }
 
         if(Enemy.Length == 0 && EnemyLeg.Length == 0 && EnemyPes.Length == 0)
         {
             Sound(1);
             victory.SetActive(true);
+            BAudio.interactable = false;
+            BPause.interactable = false;
 
             if(SceneManager.GetActiveScene().buildIndex == 3)
             {
@@ -69,6 +79,8 @@ public class UIPlayer : MonoBehaviour
 
     public void Restart()
     {
+        BAudio.interactable = true;
+        BPause.interactable = true;
         audiosrc.PlayOneShot(buttonc, 0.7f);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
@@ -90,8 +102,16 @@ public class UIPlayer : MonoBehaviour
     public void Continue()
     {
         audiosrc.PlayOneShot(buttonc, 0.7f);
+        BAudio.interactable = true;
+        BPause.interactable = true;
+        if (MenuManager.loadData + 1 == SceneManager.GetActiveScene().buildIndex)
+        {
+            PlayerPrefs.SetInt(key, MenuManager.loadData + 1);
+        }
+
         int nextscene = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextscene);
+
     }
 
     public void Sound(int i)
@@ -135,12 +155,14 @@ public class UIPlayer : MonoBehaviour
             menu = false;
             menuGame.SetActive(false);
             Time.timeScale = 1;
+
         }
         else if (menu == false)
         {
             menu = true;
             menuGame.SetActive(true);
             Time.timeScale = 0;
+
         }
     }
 }
