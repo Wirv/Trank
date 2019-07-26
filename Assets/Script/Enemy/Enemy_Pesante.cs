@@ -39,6 +39,7 @@ public class Enemy_Pesante : MonoBehaviour
     public GameObject particles; // da mettere manualmente
     public GameObject Laser; // da mettere manualmente
     public GameObject[] waypoint;
+    AudioSource audiosrc;
     #endregion
 
     #region MiniFunc
@@ -89,8 +90,10 @@ public class Enemy_Pesante : MonoBehaviour
         shot = true;
         yield return new WaitForSeconds(0.8f);
         Rigidbody projIstance;
+        audiosrc.Play();
         projIstance = Instantiate(Proj.GetComponent<Rigidbody>(), FirePoint.transform.position, FirePoint.transform.rotation);
         projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
+        audiosrc.Play();
         projIstance = Instantiate(Proj.GetComponent<Rigidbody>(), FirePoint2.transform.position, FirePoint2.transform.rotation);
         projIstance.AddForce(FirePoint2.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
         shot = false;
@@ -108,7 +111,8 @@ public class Enemy_Pesante : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();        
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        audiosrc = GetComponent<AudioSource>();
     }
 
     private void Start()

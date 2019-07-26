@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     public GameObject particles; // da mettere manualmente
     public GameObject[] waypoint;
     public UIPlayer uip;
+    AudioSource audiosrc;
     #endregion
 
 
@@ -119,6 +120,7 @@ public class Enemy : MonoBehaviour
         shot = true;
         yield return new WaitForSeconds(0.5f);
         Rigidbody projIstance;
+        audiosrc.Play();
         projIstance = Instantiate(Proj.GetComponent<Rigidbody>(), FirePoint.transform.position, FirePoint.transform.rotation);
         projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
         shot = false;
@@ -130,6 +132,8 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         uip = FindObjectOfType<UIPlayer>();
+
+        audiosrc = GetComponent<AudioSource>();
     }
 
     private void Start()

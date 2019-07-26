@@ -169,6 +169,7 @@ public class Enemy_Leg : MonoBehaviour
         if(other.name == "Player")
         {
             explosion = true;
+         
             Instantiate(Explosion, gameObject.transform.position, gameObject.transform.rotation);
             Player.Life -= 50;
             Destroy(gameObject);
@@ -177,6 +178,7 @@ public class Enemy_Leg : MonoBehaviour
         if (other.tag == "Wall")
         {
             explosion = true;
+           
             Instantiate(Explosion, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
         }

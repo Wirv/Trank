@@ -10,9 +10,16 @@ public class MenuManager : MonoBehaviour
 
     public GameObject[] livelli;
 
+    AudioSource audiosrc;
+
+    public AudioClip buttonc;
+    public AudioClip closebutton;
+
     private void Awake()
     {
         livelli = GameObject.FindGameObjectsWithTag("livelli");
+
+        audiosrc = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -32,11 +39,13 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        audiosrc.PlayOneShot(buttonc, 0.7f);
         SceneManager.LoadScene(1);
     }
 
     public void Livelli()
     {
+        audiosrc.PlayOneShot(buttonc, 0.7f);
         Menu.SetActive(false);
 
         Levels.SetActive(true);
@@ -44,6 +53,7 @@ public class MenuManager : MonoBehaviour
 
     public void UndoLivelli()
     {
+        audiosrc.PlayOneShot(closebutton, 0.7f);
         Menu.SetActive(true);
 
         Levels.SetActive(false);
@@ -51,11 +61,13 @@ public class MenuManager : MonoBehaviour
 
     public void Quitting()
     {
+        audiosrc.PlayOneShot(closebutton, 0.7f);
         Application.Quit();
     }
 
     public void ChoiseLevel(int i)
     {
+        audiosrc.PlayOneShot(buttonc, 0.7f);
         switch (i)
         {
             case 1:

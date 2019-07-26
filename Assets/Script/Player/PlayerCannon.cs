@@ -18,6 +18,7 @@ public class PlayerCannon : MonoBehaviour
     [Header("GameObject")]
     public Rigidbody Proj;
     GameObject FirePoint;
+    AudioSource audiosrc;
 
     Vector3 moveDir = Vector3.zero;
 
@@ -27,6 +28,8 @@ public class PlayerCannon : MonoBehaviour
     void Awake()
     {
         Joystick = FindObjectOfType<Joystick_torretta>();
+
+        audiosrc = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -68,6 +71,7 @@ public class PlayerCannon : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Rigidbody projIstance;
+        audiosrc.Play();
         projIstance = Instantiate(Proj, FirePoint.transform.position, FirePoint.transform.rotation) as Rigidbody;
         projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
         shott = false;
