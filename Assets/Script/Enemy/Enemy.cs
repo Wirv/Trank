@@ -211,8 +211,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == target.name)
-            takePoint = false;
+        if (target != null)
+        {
+            if (other.name == target.name)
+                takePoint = false;
+        }
 
         if (other.tag == "Project")
         {

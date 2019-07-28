@@ -77,8 +77,10 @@
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Player\PlayerCannon.cs" />
     <Compile Include="Assets\Script\Player\Projectile.cs" />
-    <Compile Include="Assets\Script\Rondello.cs" />
-    <Compile Include="Assets\Script\Trappola.cs" />
+    <Compile Include="Assets\Script\PowerUp.cs" />
+    <Compile Include="Assets\Script\Trappole\OggettiTrappola.cs" />
+    <Compile Include="Assets\Script\Trappole\Rondello.cs" />
+    <Compile Include="Assets\Script\Trappole\Trappola.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Lavoro-Modelli/GitKraken/Trank/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

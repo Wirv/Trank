@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "ProjectEn")
         {
-            Life -= 5;
+            Life -= 8;
             Destroy(other.gameObject);
         }
 
@@ -68,14 +68,11 @@ public class Player : MonoBehaviour
 
         if (other.tag == "Laser")
         {
-            Life -= 15;
+            Life -= 20;
             
         }
 
-        if (other.tag == "Explosion")
-        {
-            Life -= 20;
-        }
+        
 
     }
 

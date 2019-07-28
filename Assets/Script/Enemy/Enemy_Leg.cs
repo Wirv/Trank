@@ -9,7 +9,7 @@ public class Enemy_Leg : MonoBehaviour
     #region Variabili
     [Header("Variabili Numeriche")]
     public float speed = 20;
-    protected int life = 16;
+    protected int life = 10;
     protected int maxlife = 16;
     protected float maxAngle = 25;
     protected float maxRadius = 120;
@@ -155,13 +155,16 @@ public class Enemy_Leg : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == target.name)
-            takePoint = false;
+        if (target != null)
+        {
+            if (other.name == target.name)
+                takePoint = false;
+        }
 
         if (other.tag == "Project")
         {
             takePlayer = true;
-            life -= 8;
+            life -= 10;
 
             Destroy(other.gameObject);
         }
@@ -171,7 +174,7 @@ public class Enemy_Leg : MonoBehaviour
             explosion = true;
          
             Instantiate(Explosion, gameObject.transform.position, gameObject.transform.rotation);
-            Player.Life -= 50;
+            Player.Life -= 25;
             Destroy(gameObject);
         }
 

@@ -6,14 +6,31 @@ public class Trappola : MonoBehaviour
 {
     public GameObject[] enmy;
 
+    public GameObject giu;
+
     public bool active = false;
+
+    float giuok;
+
+    private void Start()
+    {
+        active = false;
+        giuok = giu.transform.position.y;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if(active == true)
         {
-            for(int i = 0; i < enmy.Length - 1; i++)
+           
+            if(giu.transform.position.y >= giuok - 50)
+            giu.transform.Translate(Vector3.down * 35 * Time.deltaTime);
+
+
+
+            if(giu.transform.position.y <= giuok - 50 && enmy.Length > 0)
+            for (int i = 0; i < enmy.Length; i++)
             {
                 switch (enmy[i].tag)
                 {
@@ -31,4 +48,6 @@ public class Trappola : MonoBehaviour
             }
         }
     }
+
+    
 }
