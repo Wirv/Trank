@@ -19,12 +19,14 @@ public class UIPlayer : MonoBehaviour
     public GameObject[] EnemyLeg;
     public GameObject[] EnemyPes;
 
+
     [Header("Suoni")]
     AudioSource audiosrc;
     public AudioClip win;
     public AudioClip lose;
     public AudioClip buttonc;
     public AudioClip closebutton;
+    public RawImage AudiooffOn;
     bool sound = false;
     bool menu = false;
 
@@ -39,6 +41,7 @@ public class UIPlayer : MonoBehaviour
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");
         EnemyLeg = GameObject.FindGameObjectsWithTag("EnemyLeg");
         EnemyPes = GameObject.FindGameObjectsWithTag("EnemyPes");
+        AudiooffOn = GameObject.FindGameObjectWithTag("Audio").GetComponent<RawImage>();
     }
 
     private void Start()
@@ -140,10 +143,12 @@ public class UIPlayer : MonoBehaviour
         if (AudioListener.pause == true)
         {
             AudioListener.pause = false;
+            AudiooffOn.color = Color.black;
         }
         else
         {
             AudioListener.pause = true;
+            AudiooffOn.color = Color.red;
         }
             
     }
