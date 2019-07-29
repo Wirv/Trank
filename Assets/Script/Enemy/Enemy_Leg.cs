@@ -31,6 +31,7 @@ public class Enemy_Leg : MonoBehaviour
     public GameObject particles; // da mettere manualmente
     public GameObject Explosion; // da mettere manualmente
     public GameObject[] waypoint;
+    public UIPlayer uip;
     #endregion
 
     #region MiniFunc
@@ -79,6 +80,7 @@ public class Enemy_Leg : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        uip = FindObjectOfType<UIPlayer>();
     }
 
     private void Start()
@@ -178,7 +180,7 @@ public class Enemy_Leg : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (other.tag == "Wall")
+        if (other.tag == "Wall" && takePlayer == true)
         {
             explosion = true;
            
@@ -189,7 +191,15 @@ public class Enemy_Leg : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(explosion == false)
-        Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
+        if (Application.isPlaying && !Application.isLoadingLevel)
+        {
+            if (explosion == false)
+            {
+                Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
+                uip.Research();
+            }
+                
+        }
+           
     }
 }

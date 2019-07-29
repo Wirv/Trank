@@ -39,6 +39,7 @@ public class Enemy_Pesante : MonoBehaviour
     public GameObject particles; // da mettere manualmente
     public GameObject Laser; // da mettere manualmente
     public GameObject[] waypoint;
+    public UIPlayer uip;
     AudioSource audiosrc;
     #endregion
 
@@ -112,6 +113,7 @@ public class Enemy_Pesante : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        uip = FindObjectOfType<UIPlayer>();
         audiosrc = GetComponent<AudioSource>();
     }
 
@@ -209,6 +211,11 @@ public class Enemy_Pesante : MonoBehaviour
 
     private void OnDestroy()
     {
-        Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
+        if (Application.isPlaying && !Application.isLoadingLevel)
+        {
+            Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
+            uip.Research();
+        }
+            
     }
 }

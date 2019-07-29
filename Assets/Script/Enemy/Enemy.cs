@@ -229,7 +229,11 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
-        uip.Research();
+        if (Application.isPlaying && !Application.isLoadingLevel)
+        {
+            Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
+            uip.Research();
+        }
+        
     }
 }

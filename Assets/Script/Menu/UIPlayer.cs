@@ -10,6 +10,7 @@ public class UIPlayer : MonoBehaviour
     public GameObject die; // mettere a mano
     public GameObject victory; // mettere a mano
     public GameObject menuGame;
+    public GameObject tutorial, ringraziamenti;
     public Button BPause, BAudio;
 
     [Header("Altro")]
@@ -46,6 +47,12 @@ public class UIPlayer : MonoBehaviour
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            tutorial.SetActive(true);
+            Time.timeScale = 0;
+        }
+        ringraziamenti.SetActive(false);
         die.SetActive(false);
         victory.SetActive(false);
         menuGame.SetActive(false);
@@ -74,8 +81,18 @@ public class UIPlayer : MonoBehaviour
 
             if(SceneManager.GetActiveScene().buildIndex == 3)
             {
-                Application.Quit();
+                victory.SetActive(false);
+                ringraziamenti.SetActive(true);
             }
+        }
+
+        if (AudioListener.pause == false)
+        {
+            AudiooffOn.color = Color.black;
+        }
+        else if (AudioListener.pause == true)
+        {
+            AudiooffOn.color = Color.red;
         }
 
     }
@@ -85,6 +102,7 @@ public class UIPlayer : MonoBehaviour
         BAudio.interactable = true;
         BPause.interactable = true;
         audiosrc.PlayOneShot(buttonc, 0.7f);
+        Time.timeScale = 1;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
@@ -93,6 +111,12 @@ public class UIPlayer : MonoBehaviour
     {
         audiosrc.PlayOneShot(closebutton, 0.7f);
         Application.Quit();
+    }
+
+    public void ReturnMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 
     public void Research()
@@ -143,12 +167,10 @@ public class UIPlayer : MonoBehaviour
         if (AudioListener.pause == true)
         {
             AudioListener.pause = false;
-            AudiooffOn.color = Color.black;
         }
         else
         {
             AudioListener.pause = true;
-            AudiooffOn.color = Color.red;
         }
             
     }

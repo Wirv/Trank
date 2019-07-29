@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MobileJoystick;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
-        Instantiate(particles, gameObject.transform.position , gameObject.transform.rotation);
+        if (Application.isPlaying && !Application.isLoadingLevel)
+            Instantiate(particles, gameObject.transform.position , gameObject.transform.rotation);
     }
 }

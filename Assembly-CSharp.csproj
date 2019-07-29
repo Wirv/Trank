@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\Laser_Wall_Collision.cs" />
     <Compile Include="Assets\Script\Menu\MenuManager.cs" />
+    <Compile Include="Assets\Script\Menu\Tutorial.cs" />
     <Compile Include="Assets\Script\Menu\UIPlayer.cs" />
     <Compile Include="Assets\Script\Particles_Destroy.cs" />
     <Compile Include="Assets\Script\Player\CameraFollow.cs" />

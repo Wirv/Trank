@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject Menu, Levels;
+    public GameObject Menu, Levels , SpriteS, SpriteR, BtnS, BtnR;
 
     public GameObject[] livelli;
 
@@ -20,16 +20,20 @@ public class MenuManager : MonoBehaviour
 
     private void Awake()
     {
-        livelli = GameObject.FindGameObjectsWithTag("livelli");
-
+        Menu = GameObject.Find("Menu");
+        Levels = GameObject.Find("Livelli");
+        SpriteS = GameObject.Find("RawImageS");
+        SpriteR = GameObject.Find("RawImageR");
+        BtnS = GameObject.Find("Start");
+        BtnR = GameObject.Find("Resume");
         audiosrc = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Menu = GameObject.Find("Menu");
-        Levels = GameObject.Find("Livelli");
+        SpriteR.SetActive(false);
+        BtnR.SetActive(false);
         Levels.SetActive(false);
         Menu.SetActive(true);
         if(!PlayerPrefs.HasKey(key))
@@ -38,7 +42,19 @@ public class MenuManager : MonoBehaviour
             Debug.Log("creato");
         }
 
-        loadData = PlayerPrefs.GetInt(key);
+        if (PlayerPrefs.HasKey(key))
+            loadData = PlayerPrefs.GetInt(key);
+        else
+            loadData = 0;
+
+        if(loadData > 0)
+        {
+            SpriteR.SetActive(true);
+            BtnR.SetActive(true);
+            SpriteS.SetActive(false);
+            BtnS.SetActive(false);
+        }
+
         for(int i = loadData + 1; i < livelli.Length; i++)
         {
             livelli[i].GetComponent<Button>().interactable = false;
@@ -55,6 +71,12 @@ public class MenuManager : MonoBehaviour
     {
         audiosrc.PlayOneShot(buttonc, 0.7f);
         SceneManager.LoadScene(1);
+    }
+
+    public void ResumeGame()
+    {
+        audiosrc.PlayOneShot(buttonc, 0.7f);
+        SceneManager.LoadScene(loadData + 1);
     }
 
     public void Livelli()
