@@ -9,7 +9,7 @@ public class Rondello : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        y += Time.deltaTime * 50;
+        y += Time.deltaTime * 25;
         transform.rotation = Quaternion.Euler(0, y, 0);
     }
 }

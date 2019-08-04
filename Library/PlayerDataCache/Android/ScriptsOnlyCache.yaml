@@ -26,8 +26,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
     - UnityEditor.Graphs.AnimatorControllerTool
-    UnityEditor.TestRunner.dll:
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -103,21 +101,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9588}
     - Class: 114
-      Script: {instanceID: 9922}
+      Script: {instanceID: 9882}
     - Class: 114
-      Script: {instanceID: 9946}
+      Script: {instanceID: 9924}
     - Class: 114
-      Script: {instanceID: 10028}
+      Script: {instanceID: 9948}
     - Class: 114
-      Script: {instanceID: 10216}
+      Script: {instanceID: 10030}
     - Class: 114
-      Script: {instanceID: 10444}
+      Script: {instanceID: 10218}
     - Class: 114
-      Script: {instanceID: 10452}
+      Script: {instanceID: 10446}
     - Class: 114
-      Script: {instanceID: 10672}
+      Script: {instanceID: 10454}
     - Class: 114
-      Script: {instanceID: 15152}
+      Script: {instanceID: 10674}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -210,25 +208,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9866}
     - Class: 114
-      Script: {instanceID: 9892}
+      Script: {instanceID: 9882}
     - Class: 114
-      Script: {instanceID: 9922}
+      Script: {instanceID: 9894}
     - Class: 114
-      Script: {instanceID: 9946}
+      Script: {instanceID: 9924}
     - Class: 114
-      Script: {instanceID: 10028}
+      Script: {instanceID: 9948}
     - Class: 114
-      Script: {instanceID: 10040}
+      Script: {instanceID: 10030}
     - Class: 114
-      Script: {instanceID: 10216}
+      Script: {instanceID: 10042}
     - Class: 114
-      Script: {instanceID: 10452}
+      Script: {instanceID: 10218}
     - Class: 114
-      Script: {instanceID: 10672}
+      Script: {instanceID: 10454}
     - Class: 114
-      Script: {instanceID: 13188}
+      Script: {instanceID: 10674}
     - Class: 114
-      Script: {instanceID: 15152}
+      Script: {instanceID: 13352}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -321,33 +319,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9866}
     - Class: 114
-      Script: {instanceID: 9892}
+      Script: {instanceID: 9882}
     - Class: 114
-      Script: {instanceID: 9922}
+      Script: {instanceID: 9894}
     - Class: 114
-      Script: {instanceID: 9944}
+      Script: {instanceID: 9924}
     - Class: 114
       Script: {instanceID: 9946}
     - Class: 114
-      Script: {instanceID: 10028}
+      Script: {instanceID: 9948}
     - Class: 114
-      Script: {instanceID: 10040}
+      Script: {instanceID: 10030}
     - Class: 114
-      Script: {instanceID: 10094}
+      Script: {instanceID: 10042}
     - Class: 114
-      Script: {instanceID: 10134}
+      Script: {instanceID: 10096}
     - Class: 114
-      Script: {instanceID: 10216}
+      Script: {instanceID: 10136}
     - Class: 114
-      Script: {instanceID: 10254}
+      Script: {instanceID: 10218}
     - Class: 114
-      Script: {instanceID: 10444}
+      Script: {instanceID: 10256}
     - Class: 114
-      Script: {instanceID: 10452}
+      Script: {instanceID: 10446}
     - Class: 114
-      Script: {instanceID: 10672}
+      Script: {instanceID: 10454}
     - Class: 114
-      Script: {instanceID: 15152}
+      Script: {instanceID: 10674}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -420,7 +418,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9816}
     - Class: 114
-      Script: {instanceID: 9980}
+      Script: {instanceID: 9982}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -957,6 +955,12 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
+    className: Tutorial
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
     className: Laser_Wall_Collision
   - hash:
       serializedVersion: 2
@@ -1198,12 +1202,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Tutorial
   platform: 13
   scenePathNames:
   - Assets/Scenes/Menu.unity
