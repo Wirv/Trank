@@ -104,7 +104,8 @@ public class Enemy_Pesante : MonoBehaviour
     {
         shotLaser = true;
         yield return new WaitForSeconds(2);
-        Instantiate(Laser, FirePointLaser.transform.position, FirePointLaser.transform.rotation);
+        GameObject la = Instantiate(Laser, FirePointLaser.transform.position, FirePointLaser.transform.rotation);
+        la.transform.SetParent(FirePointLaser.transform);
         shotLaser = false;
     }
     #endregion
@@ -204,6 +205,13 @@ public class Enemy_Pesante : MonoBehaviour
         {
             takePlayer = true;
             life -= 8;
+
+            Destroy(other.gameObject);
+        }
+        else if (other.tag == "ProjectAP")
+        {
+            takePlayer = true;
+            life -= 12;
 
             Destroy(other.gameObject);
         }

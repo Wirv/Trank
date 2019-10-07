@@ -21,7 +21,7 @@ public class Trappola : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(active == true)
+        if(active == true && enmy[0] != null && enmy[1] != null && enmy[2] != null)
         {
            
             if(giu.transform.position.y >= giuok - 50)

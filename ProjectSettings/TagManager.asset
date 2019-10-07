@@ -18,6 +18,10 @@ TagManager:
   - UIP
   - livelli
   - Audio
+  - ProjectAP
+  - Crist
+  - ProjectBoss
+  - Spawn
   layers:
   - Default
   - TransparentFX

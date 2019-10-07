@@ -10,13 +10,14 @@ public class PlayerCannon : MonoBehaviour
 
     [Header("Variabili Numeriche")]    
     public float moveSpeed = 8.0f;
-    public float projSpeed = 5000;
+    private float projSpeed = 5000;
     public float sensitivity = 5.0f;
     public float smoothing = 2.0f;
     public float minAngle = -60.0f;
     public float maxAngle = 70.0f;
     [Header("GameObject")]
     public Rigidbody Proj;
+    public Rigidbody ProjAP;
     GameObject FirePoint;
     AudioSource audiosrc;
 
@@ -24,6 +25,10 @@ public class PlayerCannon : MonoBehaviour
 
     bool escape = false;
     bool shott = false;
+
+    public static bool attackPlus = false;
+
+    private float timer = 0;
 
     void Awake()
     {
@@ -56,7 +61,7 @@ public class PlayerCannon : MonoBehaviour
         {
 
             moveDir = new Vector3(Joystick.AxisNormalized.x, 0, Joystick.AxisNormalized.y);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 10 * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 20 * Time.deltaTime);
 
         }
 
@@ -65,6 +70,16 @@ public class PlayerCannon : MonoBehaviour
             StartCoroutine(shot());
             shott = true;
         }
+
+        if (attackPlus == true)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 10)
+            {
+                timer = 0;
+                attackPlus = false;
+            }
+        }
     }
 
     IEnumerator shot()
@@ -72,8 +87,18 @@ public class PlayerCannon : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Rigidbody projIstance;
         audiosrc.Play();
-        projIstance = Instantiate(Proj, FirePoint.transform.position, FirePoint.transform.rotation) as Rigidbody;
-        projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
+
+        if (attackPlus == true)
+        {
+            projIstance = Instantiate(ProjAP, FirePoint.transform.position, FirePoint.transform.rotation) as Rigidbody;
+            projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
+        }
+        else
+        {
+
+            projIstance = Instantiate(Proj, FirePoint.transform.position, FirePoint.transform.rotation) as Rigidbody;
+            projIstance.AddForce(FirePoint.transform.forward * projSpeed * Time.deltaTime, ForceMode.Impulse);
+        }
         shott = false;
 
     }

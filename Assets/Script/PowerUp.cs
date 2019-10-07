@@ -32,7 +32,21 @@ public class PowerUp : MonoBehaviour
                     Destroy(gameObject);
 
                     break;
-                   
+
+                case "Scudo":
+
+                    player.ShieldForce.SetActive(true);
+                    Destroy(gameObject);
+                    break;
+
+                case "Spada":
+
+                    PlayerCannon.attackPlus = true;
+                    Destroy(gameObject);
+
+                    break;
+
+
             }
         }
     }

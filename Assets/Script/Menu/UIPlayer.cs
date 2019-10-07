@@ -19,6 +19,7 @@ public class UIPlayer : MonoBehaviour
     public GameObject[] Enemy;
     public GameObject[] EnemyLeg;
     public GameObject[] EnemyPes;
+    private GameObject Boss;
 
 
     [Header("Suoni")]
@@ -42,6 +43,7 @@ public class UIPlayer : MonoBehaviour
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");
         EnemyLeg = GameObject.FindGameObjectsWithTag("EnemyLeg");
         EnemyPes = GameObject.FindGameObjectsWithTag("EnemyPes");
+        Boss = GameObject.Find("BossTesi");
         AudiooffOn = GameObject.FindGameObjectWithTag("Audio").GetComponent<RawImage>();
     }
 
@@ -67,19 +69,19 @@ public class UIPlayer : MonoBehaviour
         if (!player)
         {
             Sound(0);
-            die.SetActive(true);
+            StartCoroutine(Die());
             BAudio.interactable = false;
             BPause.interactable = false;
         }
 
-        if(Enemy.Length == 0 && EnemyLeg.Length == 0 && EnemyPes.Length == 0)
+        if(Enemy.Length == 0 && EnemyLeg.Length == 0 && EnemyPes.Length == 0 && Boss == null)
         {
             Sound(1);
             victory.SetActive(true);
             BAudio.interactable = false;
             BPause.interactable = false;
 
-            if(SceneManager.GetActiveScene().buildIndex == 3)
+            if(SceneManager.GetActiveScene().buildIndex == 5)
             {
                 victory.SetActive(false);
                 ringraziamenti.SetActive(true);
@@ -95,6 +97,12 @@ public class UIPlayer : MonoBehaviour
             AudiooffOn.color = Color.red;
         }
 
+    }
+
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(0.5f);
+        die.SetActive(true);
     }
 
     public void Restart()

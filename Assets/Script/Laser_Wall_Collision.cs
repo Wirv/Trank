@@ -5,53 +5,45 @@ using UnityEngine;
 
 public class Laser_Wall_Collision : MonoBehaviour
 {
-    Vector3 TempC;
-    float TempH;
-    Vector3 MaxC = new Vector3(0, 0, 50);
-    float MaxH = 109.2f;
+    private LineRenderer laser;
 
-    float z = 80;
-    float h = 180;
-    
+    RaycastHit hit;
+
+    private bool hitting;
+
+    public float lange;
+
+    private void Start()
+    {
+        hitting = false;
+        laser = gameObject.GetComponent<LineRenderer>();
+    }
 
     private void Update()
     {
 
-        if (gameObject.GetComponent<CapsuleCollider>().center.z < MaxC.z)
+        if (Physics.Raycast(laser.transform.position, laser.transform.TransformDirection(Vector3.forward), out hit, lange))
         {
-            gameObject.GetComponent<CapsuleCollider>().center += new Vector3(0,0,z * Time.deltaTime);
-            TempC = gameObject.GetComponent<CapsuleCollider>().center;
+            if (hit.collider.tag == "Wall" || hit.collider.tag == "Player")
+            {
+                laser.SetPosition(1, new Vector3(0, 0, hit.distance + 2f));
+            }
+
+            if(hit.collider.tag == "Player" && hitting == false)
+            {
+                hit.collider.gameObject.GetComponent<Player>().Life -= 20;
+                hitting = true;
+            }
+
         }
-        else if (gameObject.GetComponent<CapsuleCollider>().center.z > MaxC.z)
+        else
         {
-            gameObject.GetComponent<CapsuleCollider>().center = MaxC;
+            laser.SetPosition(1, new Vector3(0, 0, lange));
         }
 
-
-
-        if(gameObject.GetComponent<CapsuleCollider>().height < MaxH)
-        {
-            gameObject.GetComponent<CapsuleCollider>().height += h * Time.deltaTime;
-            TempH = gameObject.GetComponent<CapsuleCollider>().height;
-        }
-        else if (gameObject.GetComponent<CapsuleCollider>().height > MaxH)
-        {
-            gameObject.GetComponent<CapsuleCollider>().height = MaxH;
-        }
-       
 
     }
 
-
-    private void OnTriggerStay(Collider other)
-    {
-
-        if(other.tag == "Wall")
-        {
-            MaxC = TempC;
-            MaxH = TempH;
-        }
-    }
 
     
 }

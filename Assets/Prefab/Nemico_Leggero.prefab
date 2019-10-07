@@ -176,7 +176,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100560245800305845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -184,7 +184,7 @@ RectTransform:
   - {fileID: 6997966206874883322}
   m_Father: {fileID: 8803123268514642848}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -215,13 +215,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878223371658962349}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.12442268, y: 0.10390872, z: 0.108146235}
   m_Children: []
   m_Father: {fileID: 8803123268514642848}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 0, y: 0.25}
   m_AnchoredPosition: {x: 79.6, y: 4.8}
@@ -448,7 +448,7 @@ Transform:
   m_GameObject: {fileID: 3447453661476745822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -25.495642, y: 2, z: -68.616196}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_Children:
   - {fileID: 6488768805403032691}
   - {fileID: 6250507119181223028}
@@ -485,9 +485,10 @@ MonoBehaviour:
   cameramain: {fileID: 0}
   particles: {fileID: 3772325125780908424, guid: d271dcb02c4d8504e88063dfeedc2f74,
     type: 3}
-  Explosion: {fileID: 9057258992940581620, guid: c2f2c134cdcbff74d96b62cc53cf64b8,
+  Explosion: {fileID: 4728937607695136167, guid: 2fa098809410e384c8a6cc95132786e5,
     type: 3}
   waypoint: []
+  uip: {fileID: 0}
 --- !u!54 &5462052611633959857
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -537,7 +538,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.21, y: 2.56, z: 14.7}
+  m_Size: {x: 6.42, y: 2.56, z: 13.73}
   m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!82 &7179830869675226513
 AudioSource:
@@ -551,7 +552,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0e790e786b4ad64458117fbeabe1c8d9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

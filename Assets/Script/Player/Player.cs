@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public float verticalVelocity;
     public float moveSpeed = 60;
     public float rotationSpeed = 8.0f;
+    [SerializeField]
+    private float timer = 0;
 
     
     Vector3 moveDir = Vector3.zero;
@@ -26,10 +28,14 @@ public class Player : MonoBehaviour
     [Header("GameObject")]
     public GameObject particles; // da mettere manualmente
 
+    [Header("Shield")]
+    public GameObject ShieldForce;
+
     void Awake()
     {
         Joystick = FindObjectOfType<Joystick>();
         slider = GameObject.FindGameObjectWithTag("UIP").GetComponent<Slider>();
+        ShieldForce.SetActive(false);
     }
 
     public void Start()
@@ -50,30 +56,57 @@ public class Player : MonoBehaviour
 
         if (Life <= 0)           
             Destroy(gameObject);
+
+
+        if (ShieldForce.activeInHierarchy)
+        {
+            timer += Time.deltaTime;
+            if(timer >= 5)
+            {
+                deactivatedShield();
+            }
+        }
+        else
+        {
+            deactivatedShield();
+        }
         
+    }
+
+    private void deactivatedShield()
+    {
+        timer = 0;
+        ShieldForce.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ProjectEn")
+        if (!ShieldForce.activeInHierarchy)
         {
-            Life -= 8;
-            Destroy(other.gameObject);
-        }
+            if (other.tag == "ProjectEn")
+            {
+                Life -= 8;
+                Destroy(other.gameObject);
+            }
 
-        if (other.tag == "ProjectPS")
-        {
-            Life -= 10;
-            Destroy(other.gameObject);
-        }
+            if (other.tag == "ProjectPS")
+            {
+                Life -= 10;
+                Destroy(other.gameObject);
+            }
 
-        if (other.tag == "Laser")
-        {
-            Life -= 20;
-            
-        }
+            //if (other.tag == "Laser")
+            //{
+            //    Life -= 20;
 
-        
+            //}
+
+            if (other.tag == "ProjectBoss")
+            {
+                Life -= 15;
+                Destroy(other.gameObject);
+            }
+        }
 
     }
 

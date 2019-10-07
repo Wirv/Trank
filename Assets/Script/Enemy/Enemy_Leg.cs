@@ -80,6 +80,9 @@ public class Enemy_Leg : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        cameramain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
         uip = FindObjectOfType<UIPlayer>();
     }
 
@@ -170,8 +173,15 @@ public class Enemy_Leg : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+        else if (other.tag == "ProjectAP")
+        {
+            takePlayer = true;
+            life -= 12;
 
-        if(other.name == "Player")
+            Destroy(other.gameObject);
+        }
+
+        if (other.name == "Player" && !Player.ShieldForce.activeInHierarchy)
         {
             explosion = true;
          

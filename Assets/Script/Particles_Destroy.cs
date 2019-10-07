@@ -10,7 +10,7 @@ public class Particles_Destroy : MonoBehaviour
         if(gameObject.tag != "Laser")
             Invoke("Destroyer", 1f);
         else
-            Invoke("Destroyer", 0.2f);
+            Invoke("Destroyer", 0.6f);
     }
 
     public void Destroyer()

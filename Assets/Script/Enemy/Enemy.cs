@@ -131,6 +131,8 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
+        cameramain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
         uip = FindObjectOfType<UIPlayer>();
 
         audiosrc = GetComponent<AudioSource>();
@@ -222,6 +224,13 @@ public class Enemy : MonoBehaviour
             takePlayer = true;
             life -= 8; 
             
+            Destroy(other.gameObject);
+        }
+        else if(other.tag == "ProjectAP")
+        {
+            takePlayer = true;
+            life -= 12;
+
             Destroy(other.gameObject);
         }
 

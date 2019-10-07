@@ -36,6 +36,7 @@ public class MenuManager : MonoBehaviour
         BtnR.SetActive(false);
         Levels.SetActive(false);
         Menu.SetActive(true);
+
         if(!PlayerPrefs.HasKey(key))
         {
             PlayerPrefs.SetInt(key, 0);
