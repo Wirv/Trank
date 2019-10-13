@@ -10,7 +10,7 @@ public class Enemy_Leg : MonoBehaviour
     [Header("Variabili Numeriche")]
     public float speed = 20;
     protected int life = 10;
-    protected int maxlife = 16;
+    protected int maxlife = 10;
     protected float maxAngle = 25;
     protected float maxRadius = 120;
     [Header("Variabili Booleane")]

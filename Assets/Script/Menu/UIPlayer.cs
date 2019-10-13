@@ -12,6 +12,7 @@ public class UIPlayer : MonoBehaviour
     public GameObject menuGame;
     public GameObject tutorial, ringraziamenti;
     public Button BPause, BAudio;
+    public Text NumeroNemici;
 
     [Header("Altro")]
     public GameObject player;
@@ -74,21 +75,27 @@ public class UIPlayer : MonoBehaviour
             BPause.interactable = false;
         }
 
-        if(Enemy.Length == 0 && EnemyLeg.Length == 0 && EnemyPes.Length == 0 && Boss == null)
+        int num = Enemy.Length + EnemyLeg.Length + EnemyPes.Length;
+        NumeroNemici.text = num.ToString();
+
+        if(Enemy.Length == 0 && EnemyLeg.Length == 0 && EnemyPes.Length == 0 && SceneManager.GetActiveScene().buildIndex != 5)
         {
             Sound(1);
             victory.SetActive(true);
             BAudio.interactable = false;
             BPause.interactable = false;
 
-            if(SceneManager.GetActiveScene().buildIndex == 5)
-            {
-                victory.SetActive(false);
-                ringraziamenti.SetActive(true);
-            }
         }
 
-        if (AudioListener.pause == false)
+        if (SceneManager.GetActiveScene().buildIndex == 5 && Boss == null)
+        {
+            Sound(1);
+            BAudio.interactable = false;
+            BPause.interactable = false;
+            ringraziamenti.SetActive(true);
+        }
+
+            if (AudioListener.pause == false)
         {
             AudiooffOn.color = Color.black;
         }
