@@ -201,12 +201,14 @@ public class Enemy_Leg : MonoBehaviour
 
     private void OnDestroy()
     {
+        
         if (Application.isPlaying && !Application.isLoadingLevel)
         {
+            uip.Research();
             if (explosion == false)
             {
                 Instantiate(particles, gameObject.transform.position, gameObject.transform.rotation);
-                uip.Research();
+                
             }
                 
         }
